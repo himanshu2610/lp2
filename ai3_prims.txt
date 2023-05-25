@@ -1,0 +1,113 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+// Function to find the vertex with minimum key value 
+int min_Key(int key[], bool visited[], int V)  
+{
+    int min = 999, min_index;  // 999 represents an Infinite value
+
+    for (int i = 0; i < V; i++) { 
+        if (visited[i] == false && key[i] < min) { 
+        	// vertex should not be visited
+            min = key[i];
+			min_index = i;  
+        }
+    }    
+    return min_index;  
+}  
+
+// Function to print the final MST stored in parent[]  
+void print_MST(int parent[], vector<vector<int>> &cost, int V)  
+{  
+    int minCost=0;
+	cout<<"Edge \tWeight\n";  
+    for (int i = 1; i< V; i++) {
+		cout<<parent[i]<<" - "<<i<<" \t"<<cost[i][parent[i]]<<" \n";  
+		minCost+=cost[i][parent[i]];
+    }
+	cout<<"Total cost is : "<<minCost;
+}  
+
+// Function to find the MST using adjacency cost matrix representation  
+void find_MST(vector<vector<int>> &cost, int V)  
+{  
+    int parent[V], key[V];
+    bool visited[V];
+
+    // Initialize all the arrays 
+    for (int i = 0; i< V; i++) { 
+        key[i] = 999;    // 999 represents an Infinite value
+        visited[i] = false;
+        parent[i]=-1;
+    }    
+
+    key[0] = 0;  // Include first vertex in MST by setting its key vaue to 0.  
+    parent[0] = -1; // First node is always root of MST  
+
+    // The MST will have maximum V-1 edges  
+    for (int x = 0; x < V - 1; x++) 
+    {  
+        // Finding the minimum key vertex from the 
+        //set of vertices not yet included in MST  
+        int u = min_Key(key, visited, V);  
+
+        visited[u] = true;  // Add the minimum key vertex to the MST  
+
+        // Update key and parent arrays
+        for (int v = 0; v < V; v++)  
+        {
+            // cost[u][v] is non zero only for adjacent vertices of u  
+            // visited[v] is false for vertices not yet included in MST  
+            // key[] gets updated only if cost[u][v] is smaller than key[v]  
+            if (cost[u][v]!=0 && visited[v] == false && cost[u][v] < key[v])
+            {  
+                parent[v] = u;
+                key[v] = cost[u][v];  
+            }        
+        }
+    }
+
+    // print the final MST  
+	print_MST(parent, cost, V);  
+}  
+
+// main function
+int main()  
+{  
+    int V;
+    
+	cout<<"Enter the  number of vertices for the graph: ";
+    cin>>V;
+
+    vector<vector <int>> cost(V, vector<int>(V,0));
+    
+    for (int i=0;i<V;i++)
+    {
+        for(int j=0;j<V;j++)
+        {
+            int a;
+            cin>>a;
+			cost[i][j] = a;
+        }
+    }
+	find_MST(cost, V);  
+
+    return 0;  
+} 
+
+/*
+0 4 0 0 0 2
+4 0 6 0 0 3
+0 6 0 3 0 1
+0 0 3 0 2 0
+0 0 0 2 0 4
+2 3 1 0 4 0
+
+                     c
+         b                      d
+              
+a                                     e
+                    f
+
+
+*/
