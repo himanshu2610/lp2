@@ -1,0 +1,3 @@
+NOT(ISBLANK(Phone_Field__c)) && 
+NOT(REGEX(Phone_Field__c, "^\\+91[0-9]{10}$"))  checks for +91 and 10 digits and for more add comma 
+NOT(REGEX(Phone_Field__c, "^[0-9]{10}$"))  checks if only 10 digits
