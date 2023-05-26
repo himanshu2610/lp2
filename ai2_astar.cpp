@@ -80,6 +80,12 @@ void solve(int cost, vector<vector<int>>& initialState, vector<vector<int>>& fin
 
 int main() {
 	cout << "Enter the 8 puzzle problem in the form of 3 x 3 Matrix : ";
+	
+	/* input initialstate
+    	1 2 3
+    	0 4 6
+    	7 5 8
+    	*/
 
 	vector<vector<int>> initialState(3, vector<int>(3, 0));
 	for (int i = 0; i < 3; i++) {
