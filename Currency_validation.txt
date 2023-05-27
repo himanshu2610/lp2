@@ -1,0 +1,135 @@
+public class currency1 {
+    public string curr1{set;get;}
+    public string curr2{set;get;}
+    public double val1{set;get;}
+    public double val2{set;get;}
+    public string s1{get;set;}
+    public string s2{set;get;}
+    
+    public void convert(){
+        if (curr1==curr2){
+            try{
+                val1=double.valueOf(s1);
+                val2=val1;
+                s2=string.valueOf(val2);
+                }
+            catch(Exception e){
+                s2='enter the correct value';
+            }
+        }
+        else if (curr1=='Rupee' && curr2=='Dollar'){
+            try{
+                val1=double.valueOf(s1);
+                val2=val1/(82.83);
+                s2=string.valueOf(val2);
+            }
+            catch (Exception e){
+                s2='Enter valid input';
+            }
+        }  
+        else if(curr1=='Dollar'&& curr2=='Rupee'){
+            try{
+                val1=double.valueOf(s1);
+                val2=val1*(82.23);
+                s2=string.valueOf(val2);
+            }
+            catch(Exception e){
+                s2='Enter valid input';
+            }
+        }
+        else if(curr1=='Dollar'&& curr2=='Pound'){
+            try{
+                val1=double.valueOf(s1);
+                val2=val1/(1.23);
+                s2=string.valueOf(val2);
+            }
+            catch(Exception e){
+                s2='Enter valid input';
+            }
+        }
+        else if(curr1=='Pound'&& curr2=='Dollar'){
+            try{
+                val1=double.valueOf(s1);
+                val2=val1*(1.23);
+                s2=string.valueOf(val2);
+            }
+            catch(Exception e){
+                s2='Enter valid input';
+            }
+        }
+        else if(curr1=='Pound'&& curr2=='Rupee'){
+            try{
+                val1=double.valueOf(s1);
+                val2=val1*(102);
+                s2=string.valueOf(val2);
+            }
+            catch(Exception e){
+                s2='Enter valid input';
+            }
+        }
+        else if(curr1=='Rupee'&& curr2=='Pound'){
+            try{
+                val1=double.valueOf(s1);
+                val2=val1/(102);
+                s2=string.valueOf(val2);
+            }
+            catch(Exception e){
+                s2='Enter valid input';
+            }
+        }
+        
+    }  
+}
+
+
+
+
+
+
+<apex:page controller="currency1">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+                <apex:pageBlockSectionItem >
+                    <apex:outputlabel value="currency 1"></apex:outputlabel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:selectRadio value="{!curr1}" layout="pageDirection">
+                        <apex:selectOption itemValue="Rupee" itemlabel="Rupee"></apex:selectOption>
+                        <apex:selectOption itemValue="Dollar" itemlabel="Dollar"></apex:selectOption>
+                        <apex:selectOption itemValue="Pound" itemlabel="Pound"></apex:selectOption>
+                    </apex:selectRadio>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Value 1"></apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                	<apex:inputText value="{!s1}"/>	
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                	<apex:outputLabel value="Currency 2"></apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:selectRadio value="{!curr2}" layout="pageDirection">
+                        <apex:selectOption itemValue="Rupee" itemlabel="Rupee"></apex:selectOption>
+                        <apex:selectOption itemValue="Dollar" itemlabel="Dollar"></apex:selectOption>
+                        <apex:selectOption itemValue="Pound" itemlabel="Pound"></apex:selectOption>
+                    </apex:selectRadio>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Result"></apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:inputText value="{!s2}" id="res"/>
+                    <apex:actionStatus id="sts" startText="Finding...."></apex:actionStatus>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="Bottom">
+            <apex:commandButton value="Convert" action="{!convert}" reRender="res" status="sts"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+                       
+    
+</apex:page>
+
